@@ -1,7 +1,12 @@
-
 # Software Engineering for Data Scientists 
 
-This repository contains starter code for the **Software Engineering for Data Scientists** final project. Please reference your course materials for documentation on this repository's structure and important files. Happy coding!
+This repository contains code for the **Software Engineering for Data Scientists** final project, part of Udacity's Data Scientist nanodegree. 
+
+### Author:
+Benjamin Mardin
+
+### Topic:
+Data Science Dashboard
 
 ### Repository Structure
 ```
@@ -79,3 +84,12 @@ erDiagram
   employee ||--o{ employee_events : "employee_id"
   notes }o--o{ employee_events : ""
 ```
+
+### Libraries used:
+- pandas==2.3.1
+- python-fasthtml=0.12.21
+
+### Acknowledgements:
+- Udacity data scientist program | Software Engineering for Data Scientists
+- data sourced from Udacity 
+
