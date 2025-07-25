@@ -28,7 +28,7 @@ class Team(QueryBase):
         SELECT DISTINCT team_name, team_id
         FROM team
         """
-        result = QueryMixin.query(names_query)
+        result = QueryMixin.query(self, names_query)
         return result
     
 
@@ -49,7 +49,7 @@ class Team(QueryBase):
         FROM team
         WHERE team_id = {ID}
         """
-        result = QueryMixin.query(username_query)
+        result = QueryMixin.query(self, username_query)
         return result
         
 
@@ -76,5 +76,5 @@ class Team(QueryBase):
                     GROUP BY employee_id
                    )
                 """
-        result = QueryMixin.pandas_query(model_data_query)
+        result = QueryMixin.pandas_query(self, model_data_query)
         return result

@@ -35,11 +35,11 @@ class QueryBase():
         SELECT event_date, SUM(positive_events) AS positive_events, SUM(negative_events) AS negative_events
         FROM {self.name}
         INNER JOIN employee_events
-        ON employee_events.{id} = {self.name}.{id}
+        ON employee_events.{self.name}_id = {self.name}.{self.name}_id
         GROUP BY event_date
         ORDER BY event_date
         """
-        result = QueryMixin.pandas_query(event_counts_query)
+        result = QueryMixin.pandas_query(self, event_counts_query)
         return result
     
 
@@ -58,8 +58,8 @@ class QueryBase():
         SELECT 
         FROM notes
         INNER JOIN {self.name}
-        ON {self.name}.{id} = notes.{id}
+        ON {self.name}_id = notes.{self.name}_id
         """
-        result = QueryMixin.pandas_query(note_query)
+        result = QueryMixin.pandas_query(self, note_query)
         return result
 

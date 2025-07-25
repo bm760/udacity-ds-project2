@@ -86,8 +86,23 @@ erDiagram
 ```
 
 ### Libraries used:
-- pandas==2.3.1
-- python-fasthtml=0.12.21
+- flake8
+- ipython
+- matplotlib==3.9.2
+- numpy==2.1.2
+- pandas==2.2.3
+- pytest
+- python-fasthtml==0.8.0
+- scikit-learn==1.5.2
+- scipy==1.14.1
+
+
+
+
+
+
+
+
 
 ### Acknowledgements:
 - Udacity data scientist program | Software Engineering for Data Scientists

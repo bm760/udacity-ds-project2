@@ -18,7 +18,7 @@ class Employee(QueryBase):
     # that receives no arguments
     # This method should return a list of tuples
     # from an sql execution
-    def names():
+    def names(self):
         
         # Query 3
         # Write an SQL query
@@ -33,7 +33,7 @@ class Employee(QueryBase):
         from employee
         """
         
-        result = QueryMixin.query(names_query)
+        result = QueryMixin.query(self, names_query)
         return result
         
     
@@ -59,7 +59,7 @@ class Employee(QueryBase):
         WHERE employee_id = {id}
         """
         
-        result = QueryMixin.query(username_query)
+        result = QueryMixin.query(self, username_query)
         return result
         
         
@@ -86,5 +86,5 @@ class Employee(QueryBase):
                     WHERE {self.name}.{self.name}_id = {id}
                 """
                 
-        result = QueryMixin.pandas_query(model_data_query)
+        result = QueryMixin.pandas_query(self, model_data_query)
         return result

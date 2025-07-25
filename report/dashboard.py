@@ -6,7 +6,7 @@ from employee_events import Employee, Team, QueryBase
 
 
 # import the load_model function from the utils.py file
-from .utils import load_model
+from utils import load_model
 
 """
 Below, we import the parent classes
@@ -37,7 +37,7 @@ class ReportDropdown(Dropdown):
         
         # Return the output from the
         # parent class's build_component method
-        return super().build_component()
+        return super().build_component(entity_id, model)
     
     # Overwrite the `component_data` method
     # Ensure the method uses the same parameters
@@ -47,6 +47,7 @@ class ReportDropdown(Dropdown):
         # call the employee_events method
         # that returns the user-type's
         # names and ids
+        return model.names()
         
         
 
@@ -122,7 +123,7 @@ class LineChart(MatplotlibViz):
         # Reference the base_components/matplotlib_viz file 
         # to inspect the supported keyword arguments
         #### YOUR CODE HERE
-        self.set_axis_styling(axis, bordercolor='black', fontcolor='black')
+        self.set_axis_styling(self, ax, bordercolor='black', fontcolor='black')
         
         
         # Set title and labels for x and y axis
@@ -154,7 +155,7 @@ class BarChart(MatplotlibViz):
         # to receive the data that can be passed to the machine
         # learning model
         #### YOUR CODE HERE
-        bar_data = entity_id.model_data()
+        bar_data = model.model_data(entity_id)
         
         # Using the predictor class attribute
         # pass the data to the `predict_proba` method
@@ -196,34 +197,34 @@ class BarChart(MatplotlibViz):
         # to the `.set_axis_styling`
         # method
         #### YOUR CODE HERE
-        self.set_axis_styling(axis)
+        self.set_axis_styling(ax)
 
  
 # Create a subclass of combined_components/CombinedComponent
 # called Visualizations       
-#### YOUR CODE HERE
+class Visualizations(CombinedComponent):
 
     # Set the `children`
     # class attribute to a list
     # containing an initialized
     # instance of `LineChart` and `BarChart`
-    #### YOUR CODE HERE
+    children = [LineChart(), BarChart()]
 
     # Leave this line unchanged
     outer_div_type = Div(cls='grid')
             
 # Create a subclass of base_components/DataTable
 # called `NotesTable`
-#### YOUR CODE HERE
+class NotesTable(DataTable):
 
     # Overwrite the `component_data` method
     # using the same parameters as the parent class
-    #### YOUR CODE HERE
+    def component_data(self, entity_id, model):
         
         # Using the model and entity_id arguments
         # pass the entity_id to the model's .notes 
         # method. Return the output
-        #### YOUR CODE HERE
+        return model.notes(entity_id)
     
 
 class DashboardFilters(FormGroup):
@@ -246,31 +247,36 @@ class DashboardFilters(FormGroup):
     
 # Create a subclass of CombinedComponents
 # called `Report`
-#### YOUR CODE HERE
+class Report(CombinedComponent):
 
     # Set the `children`
     # class attribute to a list
     # containing initialized instances 
     # of the header, dashboard filters,
     # data visualizations, and notes table
-    #### YOUR CODE HERE
+    children = [Header(), DashboardFilters(), Visualizations(), NotesTable()]
 
 # Initialize a fasthtml app 
 #### YOUR CODE HERE
+app = FastHTML()
 
 # Initialize the `Report` class
 #### YOUR CODE HERE
+report = Report()
 
 
 # Create a route for a get request
 # Set the route's path to the root
 #### YOUR CODE HERE
+@app.route("/")
+def get():
 
     # Call the initialized report
     # pass the integer 1 and an instance
     # of the Employee class as arguments
     # Return the result
     #### YOUR CODE HERE
+    return report(1, Employee())
 
 # Create a route for a get request
 # Set the route's path to receive a request
@@ -280,12 +286,14 @@ class DashboardFilters(FormGroup):
 # parameterize the employee ID 
 # to a string datatype
 #### YOUR CODE HERE
-
+@app.route("/employee/{employee_id}")
+def get(employee_id:str):
     # Call the initialized report
     # pass the ID and an instance
     # of the Employee SQL class as arguments
     # Return the result
     #### YOUR CODE HERE
+    return report(employee_id, Employee())
 
 # Create a route for a get request
 # Set the route's path to receive a request
@@ -295,12 +303,15 @@ class DashboardFilters(FormGroup):
 # parameterize the team ID 
 # to a string datatype
 #### YOUR CODE HERE
+@app.route("/team/{team_id}")
+def get(team_id:str):
 
     # Call the initialized report
     # pass the id and an instance
     # of the Team SQL class as arguments
     # Return the result
     #### YOUR CODE HERE
+    return report(team_id, Team())
 
 
 # Keep the below code unchanged!
