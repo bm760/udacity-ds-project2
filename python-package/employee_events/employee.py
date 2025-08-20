@@ -29,7 +29,8 @@ class Employee(QueryBase):
         # for all employees in the database
         names_query = """
         SELECT DISTINCT 
-        employee_id, CONCAT(first_name, " ", last_name) AS full_name
+        CONCAT(first_name, " ", last_name) AS full_name,
+        employee_id 
         from employee
         """
         

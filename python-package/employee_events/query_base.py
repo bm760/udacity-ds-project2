@@ -12,7 +12,8 @@ class QueryBase():
 
     # Define a `names` method that receives
     # no passed arguments
-    def names(self):
+    @staticmethod
+    def names():
         
         # Return an empty list
         return []

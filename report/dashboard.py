@@ -108,7 +108,8 @@ class LineChart(MatplotlibViz):
         # Initialize a pandas subplot
         # and assign the figure and axis
         # to variables
-        figure, ax = plt.subplots(1, 2)
+        figure, ax = summed_line_data.plot(subplots=True)
+        # figure, ax = plt.subplots()
         
         # call the .plot method for the
         # cumulative counts dataframe
@@ -123,7 +124,7 @@ class LineChart(MatplotlibViz):
         # Reference the base_components/matplotlib_viz file 
         # to inspect the supported keyword arguments
         #### YOUR CODE HERE
-        self.set_axis_styling(self, ax, bordercolor='black', fontcolor='black')
+        self.set_axis_styling(ax, bordercolor='black', fontcolor='black')
         
         
         # Set title and labels for x and y axis
@@ -144,6 +145,7 @@ class BarChart(MatplotlibViz):
     # of the `load_model` utils function
     #### YOUR CODE HERE
     predictor = load_model()
+    print('predictor: ', predictor)
 
     # Overwrite the parent class `visualization` method
     # Use the same parameters as the parent
@@ -160,12 +162,16 @@ class BarChart(MatplotlibViz):
         # Using the predictor class attribute
         # pass the data to the `predict_proba` method
         #### YOUR CODE HERE
-        pred_output = self.predictor.predict_proba(bar_data)
+        predictor = self.predictor 
+        pred_output = predictor.predict_proba(bar_data)
+        print('pred output: ', pred_output)
         
         # Index the second column of predict_proba output
         # The shape should be (<number of records>, 1)
         #### YOUR CODE HERE
-        pred_output.set_index(pred_output.columns[1], inplace=True)
+        second_column = pred_output[:, 1]
+        pred_output_reshaped = second_column.reshape(-1, 1)
+        #pred_output.set_index(pred_output.columns[1], inplace=True)
         
         
         
@@ -176,17 +182,17 @@ class BarChart(MatplotlibViz):
         # We want to visualize the mean of the predict_proba output
         #### YOUR CODE HERE
         if model.name=='team':
-            pred = pred_output.mean()
+            pred = pred_output_reshaped.mean()
             
         # Otherwise set `pred` to the first value
         # of the predict_proba output
         #### YOUR CODE HERE
         else:
-            pred = pred_output.iloc[0]
+            pred = pred_output_reshaped[0]
         
         # Initialize a matplotlib subplot
         #### YOUR CODE HERE
-        figure, ax = plt.subplots(1, 2)
+        figure, ax = plt.subplots()
         
         # Run the following code unchanged
         ax.barh([''], [pred])
@@ -198,6 +204,7 @@ class BarChart(MatplotlibViz):
         # method
         #### YOUR CODE HERE
         self.set_axis_styling(ax)
+
 
  
 # Create a subclass of combined_components/CombinedComponent
@@ -276,7 +283,7 @@ def get():
     # of the Employee class as arguments
     # Return the result
     #### YOUR CODE HERE
-    return report(1, Employee())
+    return report('1', Employee())
 
 # Create a route for a get request
 # Set the route's path to receive a request

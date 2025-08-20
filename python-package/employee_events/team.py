@@ -17,7 +17,8 @@ class Team(QueryBase):
     # that receives no arguments
     # This method should return
     # a list of tuples from an sql execution
-    def names(self):
+    @staticmethod
+    def names():
         
         # Query 5
         # Write an SQL query that selects
@@ -28,7 +29,7 @@ class Team(QueryBase):
         SELECT DISTINCT team_name, team_id
         FROM team
         """
-        result = QueryMixin.query(self, names_query)
+        result = QueryMixin.query(names_query)
         return result
     
 
@@ -49,7 +50,7 @@ class Team(QueryBase):
         FROM team
         WHERE team_id = {ID}
         """
-        result = QueryMixin.query(self, username_query)
+        result = QueryMixin.query(username_query)
         return result
         
 
@@ -76,5 +77,5 @@ class Team(QueryBase):
                     GROUP BY employee_id
                    )
                 """
-        result = QueryMixin.pandas_query(self, model_data_query)
+        result = QueryMixin.pandas_query(model_data_query)
         return result
