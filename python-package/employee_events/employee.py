@@ -34,7 +34,7 @@ class Employee(QueryBase):
         from employee
         """
         
-        result = QueryMixin.query(self, names_query)
+        result = QueryMixin.query(names_query)
         return result
         
     
@@ -60,7 +60,7 @@ class Employee(QueryBase):
         WHERE employee_id = {id}
         """
         
-        result = QueryMixin.query(self, username_query)
+        result = QueryMixin.query(username_query)
         return result
         
         
@@ -87,5 +87,5 @@ class Employee(QueryBase):
                     WHERE {self.name}.{self.name}_id = {id}
                 """
                 
-        result = QueryMixin.pandas_query(self, model_data_query)
+        result = QueryMixin.pandas_query(model_data_query)
         return result

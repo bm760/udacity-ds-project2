@@ -40,7 +40,7 @@ class QueryBase():
         GROUP BY event_date
         ORDER BY event_date
         """
-        result = QueryMixin.pandas_query(self, event_counts_query)
+        result = QueryMixin.pandas_query(event_counts_query)
         return result
     
 
@@ -56,11 +56,11 @@ class QueryBase():
         # so the query returns the notes
         # for the table name in the `name` class attribute
         note_query = f"""
-        SELECT 
+        SELECT note_date, note
         FROM notes
         INNER JOIN {self.name}
-        ON {self.name}_id = notes.{self.name}_id
+        ON {self.name}.{self.name}_id = notes.{self.name}_id
         """
-        result = QueryMixin.pandas_query(self, note_query)
+        result = QueryMixin.pandas_query(note_query)
         return result
 

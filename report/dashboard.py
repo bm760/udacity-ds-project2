@@ -108,8 +108,8 @@ class LineChart(MatplotlibViz):
         # Initialize a pandas subplot
         # and assign the figure and axis
         # to variables
-        figure, ax = summed_line_data.plot(subplots=True)
-        # figure, ax = plt.subplots()
+        #figure, ax = summed_line_data.plot(subplots=True)
+        figure, ax = plt.subplots(1,1)
         
         # call the .plot method for the
         # cumulative counts dataframe
@@ -145,7 +145,7 @@ class BarChart(MatplotlibViz):
     # of the `load_model` utils function
     #### YOUR CODE HERE
     predictor = load_model()
-    print('predictor: ', predictor)
+    # print('predictor: ', predictor)
 
     # Overwrite the parent class `visualization` method
     # Use the same parameters as the parent
@@ -164,13 +164,13 @@ class BarChart(MatplotlibViz):
         #### YOUR CODE HERE
         predictor = self.predictor 
         pred_output = predictor.predict_proba(bar_data)
-        print('pred output: ', pred_output)
+        # print('pred output: ', pred_output)
         
         # Index the second column of predict_proba output
         # The shape should be (<number of records>, 1)
         #### YOUR CODE HERE
         second_column = pred_output[:, 1]
-        pred_output_reshaped = second_column.reshape(-1, 1)
+        # pred_output_reshaped = second_column.reshape(-1, 1)
         #pred_output.set_index(pred_output.columns[1], inplace=True)
         
         
@@ -182,13 +182,13 @@ class BarChart(MatplotlibViz):
         # We want to visualize the mean of the predict_proba output
         #### YOUR CODE HERE
         if model.name=='team':
-            pred = pred_output_reshaped.mean()
+            pred = second_column.mean()
             
         # Otherwise set `pred` to the first value
         # of the predict_proba output
         #### YOUR CODE HERE
         else:
-            pred = pred_output_reshaped[0]
+            pred = second_column[0]
         
         # Initialize a matplotlib subplot
         #### YOUR CODE HERE
@@ -283,7 +283,8 @@ def get():
     # of the Employee class as arguments
     # Return the result
     #### YOUR CODE HERE
-    return report('1', Employee())
+    employee = Employee()
+    return report(1, employee)
 
 # Create a route for a get request
 # Set the route's path to receive a request
