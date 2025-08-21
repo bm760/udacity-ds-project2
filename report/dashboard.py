@@ -109,12 +109,13 @@ class LineChart(MatplotlibViz):
         # and assign the figure and axis
         # to variables
         #figure, ax = summed_line_data.plot(subplots=True)
-        figure, ax = plt.subplots(1,1)
+        figure, ax = plt.subplots()
         
         # call the .plot method for the
         # cumulative counts dataframe
         #### YOUR CODE HERE
-        summed_line_data.plot(subplots=True)
+        summed_line_data.plot()
+        
         
         # pass the axis variable
         # to the `.set_axis_styling`
@@ -124,7 +125,7 @@ class LineChart(MatplotlibViz):
         # Reference the base_components/matplotlib_viz file 
         # to inspect the supported keyword arguments
         #### YOUR CODE HERE
-        self.set_axis_styling(ax, bordercolor='black', fontcolor='black')
+        self.set_axis_styling(ax=ax, bordercolor='black', fontcolor='black')
         
         
         # Set title and labels for x and y axis
@@ -132,6 +133,8 @@ class LineChart(MatplotlibViz):
         plt.title('event counts')
         ax.set_xlabel('event date')
         ax.set_ylabel('count')
+        
+        #plt.plot()
 
 
 # Create a subclass of base_components/MatplotlibViz
@@ -203,7 +206,13 @@ class BarChart(MatplotlibViz):
         # to the `.set_axis_styling`
         # method
         #### YOUR CODE HERE
-        self.set_axis_styling(ax)
+        self.set_axis_styling(ax=ax, bordercolor='black', fontcolor='black')
+        
+        
+        # Set title and labels for x and y axis
+        #### YOUR CODE HERE
+        plt.title('probability of exit')
+        ax.set_xlabel('probability (0,1)')
 
 
  

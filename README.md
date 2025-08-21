@@ -97,7 +97,13 @@ erDiagram
 - scipy==1.14.1
 
 
-
+### Instructions
+1. download the repository files to the location of your choice, extracting if necessary
+2. start your environment in ipython/conda/etc. 
+3. pip install employee_events-0.5.tar.gz from udacity-ds-project2\python-package\dist\
+4. using python, run dashboard.py from udacity-ds-project2\report\
+5. open a web browser to http://localhost:5001/ to see the dashboard 
+6. selecting a different user or team will update the charts and the notes on the dashboard. 
 
 
 

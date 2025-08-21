@@ -37,6 +37,7 @@ class QueryBase():
         FROM {self.name}
         INNER JOIN employee_events
         ON employee_events.{self.name}_id = {self.name}.{self.name}_id
+        where {self.name}.{self.name}_id = {id}
         GROUP BY event_date
         ORDER BY event_date
         """
@@ -60,6 +61,7 @@ class QueryBase():
         FROM notes
         INNER JOIN {self.name}
         ON {self.name}.{self.name}_id = notes.{self.name}_id
+        where {self.name}.{self.name}_id = {id}
         """
         result = QueryMixin.pandas_query(note_query)
         return result
